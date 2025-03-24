@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=EVE O Preview
+GenericName=EVE O Preview
+Comment=EVE O Preview
+Icon=com.eveonline.EveOnline.eveo
+Terminal=false
+Exec=eve-o-run
+Categories=Game;
+X-Flatpak-Tags=proprietary;
+X-Flatpak=com.eveonline.EveOnline.eveo
