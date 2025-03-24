@@ -1,6 +1,7 @@
 #!/bin/sh
 cd "$XDG_DATA_HOME"
 
+export GAMEID="8500" # Steam ID of EVE Online
 export WINEPREFIX="$XDG_DATA_HOME"/prefix
 cp "/app/eve-o-preview.exe" "$WINEPREFIX/eve-o-preview.exe"
 
