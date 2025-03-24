@@ -26,5 +26,6 @@ fi
 curl -L https://github.com/nmlynch94/com.eveonline.EveOnline/releases/latest/download/com.eveonline.EveOnline.flatpak >com.eveonline.EveOnline.flatpak
 echo "Installing......."
 flatpak install -y --user --noninteractive com.eveonline.EveOnline.flatpak
+flatpak run com.eveonline.EveOnline
 rm com.eveonline.EveOnline.flatpak
 echo "DONE"
