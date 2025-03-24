@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Eve Online
+GenericName=Eve Online
+Comment=Eve Online
+Icon=com.eveonline.EveOnline
+Terminal=false
+Exec=eve-run
+Categories=Game;
+X-Flatpak-Tags=proprietary;
+X-Flatpak=com.eveonline.EveOnline
