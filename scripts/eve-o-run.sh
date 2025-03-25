@@ -9,4 +9,5 @@ cp "/app/eve-o-preview.exe" "$WINEPREFIX/eve-o-preview.exe"
 mkdir -p "$XDG_DATA_HOME/home/$USER/.cache/dotnet_bundle_extract"
 
 # We run wine directly because running proton does not allow two processes to launch in the same prefix
+# Even using proton_verb=runinprefix from umu results in eve-o running, but it cannot properly interact with game windows.
 WINEPREFIX="$(pwd)/prefix" ./proton/files/bin/wine64 ./prefix/eve-o-preview.exe
