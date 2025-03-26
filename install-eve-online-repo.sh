@@ -10,7 +10,7 @@ if [[ -f /proc/driver/nvidia/version ]]; then
 fi
 
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak remote-add --user --if-not-exists JLauncher https://nmlynch94.github.io/com.eveonline.EveOnline/JagexLauncher.flatpakrepo
+flatpak remote-add --user --if-not-exists EveOnline https://nmlynch94.github.io/com.eveonline.EveOnline/EveOnline.flatpakrepo
 
 # https://github.com/flatpak/flatpak/issues/3094
 flatpak install --user -y --noninteractive flathub \
@@ -24,7 +24,7 @@ if [[ ${HAS_NVIDIA} -eq 1 ]]; then
         org.freedesktop.Platform.GL32.nvidia-${NVIDIA_VERISON}/x86_64
 fi
 
-flatpak install -y --user --noninteractive JLauncher com.eveonline.EveOnline
+flatpak install -y --user --noninteractive EveOnline com.eveonline.EveOnline
 
 # Perform first time setup
 flatpak run com.eveonline.EveOnline
