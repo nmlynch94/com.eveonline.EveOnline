@@ -1,7 +1,7 @@
 id: com.eveonline.EveOnline
 runtime: org.freedesktop.Platform
-runtime-version: &runtime-version '23.08'
-x-gl-version: &gl-version '1.4'
+runtime-version: &runtime-version "23.08"
+x-gl-version: &gl-version "1.4"
 x-gl-versions: &gl-versions 23.08;23.08-extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
@@ -137,11 +137,11 @@ modules:
           /lib64
 
   # These are needed for window management inside gamescope
-  - name: python-flit-core  # needed by idna
+  - name: python-flit-core # needed by idna
     buildsystem: simple
     build-commands:
       - pip3 install --no-index --no-build-isolation --prefix="${FLATPAK_DEST}" .
-    cleanup: ['*']
+    cleanup: ["*"]
     sources:
       - type: archive
         url: https://files.pythonhosted.org/packages/c4/e6/c1ac50fe3eebb38a155155711e6e864e254ce4b6e17fe2429b4c4d5b9e80/flit_core-3.9.0.tar.gz
@@ -158,63 +158,63 @@ modules:
         url: https://github.com/Open-Wine-Components/umu-launcher/releases/download/1.2.6/umu-launcher-1.2.6-zipapp.tar
         sha256: ae0bfd9bd3de209d0b6590ffbffc395d79c501b10176e9e239e4a1f842b4ad3a
     modules:
-    - name: winetricks
-      buildsystem: simple
-      build-commands:
-        - install winetricks /app/bin/winetricks
-      sources:
-        - type: file
-          url: https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
-          sha256: fd4f57a2b385c89ea896a3a8115003e935551e410128b2353dfebe2915d93d3f
-    - name: eve-o-preview
-      buildsystem: simple
-      build-commands:
-        - mv "EVE-O-Preview.exe" "/app/eve-o-preview.exe"
-      sources:
-        - type: file
-          url: https://github.com/nmlynch94/eve-o-preview/releases/download/1/EVE-O-Preview.exe
-          sha256: 65ca5950d05acf225ddc4fdb75fd2f3ed5c4d55bacb8206d8499e30233e6bb1f
-    - name: eve-o-run
-      buildsystem: simple
-      build-commands:
-        - mkdir -p /app/bin
-        - install eve-o-run /app/bin/eve-o-run
-        - install -Dm644 com.eveonline.EveOnline.eveo.desktop /app/share/applications/com.eveonline.EveOnline.eveo.desktop
-        - install -Dm644 com.eveonline.EveOnline.eveo.metainfo.xml /app/share/metainfo/com.eveonline.EveOnline.eveo.metainfo.xml
-        - install -Dm644 eve-o-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.eveo.png
-      sources:
-        - type: file
-          path: scripts/eve-o-run.sh
-          dest-filename: eve-o-run
-        - type: file
-          path: com.eveonline.EveOnline.eveo.desktop
-        - type: file
-          path: com.eveonline.EveOnline.eveo.metainfo.xml
-        - type: file
-          path: icons/256/eve-o-256.png
-    - name: eve-online-launcher
-      buildsystem: simple
-      build-commands:
-        - mkdir -p /app/lib/i386-linux-gnu/GL
-        - mkdir -p /app/lib/debug/lib/i386-linux-gnu
-        - mkdir -p /app/bin
-        - install -Dm644 com.eveonline.EveOnline.desktop /app/share/applications/com.eveonline.EveOnline.desktop
-        - install -Dm644 com.eveonline.EveOnline.metainfo.xml /app/share/metainfo/com.eveonline.EveOnline.metainfo.xml
-        - install -Dm644 eve-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.png
-        - install -Dm644 eve-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.png
-      sources:
-        - type: file
-          path: com.eveonline.EveOnline.desktop
-        - type: file
-          path: com.eveonline.EveOnline.metainfo.xml
-        - type: file
-          path: icons/256/eve-256.png
-    - name: launch-script
-      buildsystem: simple
-      build-commands:
-        - mkdir -p /app/bin
-        - install eve-run /app/bin/eve-run
-      sources:
-        - type: file
-          dest-filename: eve-run
-          path: scripts/eve-run.sh
+      - name: eve-o-preview
+        buildsystem: simple
+        build-commands:
+          - mv "EVE-O-Preview.exe" "/app/eve-o-preview.exe"
+        sources:
+          - type: file
+            url: https://github.com/nmlynch94/eve-o-preview/releases/download/1/EVE-O-Preview.exe
+            sha256: 65ca5950d05acf225ddc4fdb75fd2f3ed5c4d55bacb8206d8499e30233e6bb1f
+      - name: eve-o-run
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/bin
+          - install eve-o-run /app/bin/eve-o-run
+          - install -Dm644 com.eveonline.EveOnline.eveo.desktop /app/share/applications/com.eveonline.EveOnline.eveo.desktop
+          - install -Dm644 com.eveonline.EveOnline.eveo.metainfo.xml /app/share/metainfo/com.eveonline.EveOnline.eveo.metainfo.xml
+          - install -Dm644 eve-o-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.eveo.png
+        sources:
+          - type: file
+            path: scripts/eve-o-run.sh
+            dest-filename: eve-o-run
+          - type: file
+            path: com.eveonline.EveOnline.eveo.desktop
+          - type: file
+            path: com.eveonline.EveOnline.eveo.metainfo.xml
+          - type: file
+            path: icons/256/eve-o-256.png
+      - name: eve-online-launcher
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/lib/i386-linux-gnu/GL
+          - mkdir -p /app/lib/debug/lib/i386-linux-gnu
+          - mkdir -p /app/bin
+          - install -Dm644 com.eveonline.EveOnline.desktop /app/share/applications/com.eveonline.EveOnline.desktop
+          - install -Dm644 com.eveonline.EveOnline.metainfo.xml /app/share/metainfo/com.eveonline.EveOnline.metainfo.xml
+          - install -Dm644 eve-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.png
+          - install -Dm644 eve-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.png
+        sources:
+          - type: file
+            path: com.eveonline.EveOnline.desktop
+          - type: file
+            path: com.eveonline.EveOnline.metainfo.xml
+          - type: file
+            path: icons/256/eve-256.png
+      - name: constants
+        buildsystem: simple
+        build-commands:
+          - install constants.sh /app/constants.sh
+        sources:
+          - type: file
+            path: scripts/constants.sh
+      - name: launch-script
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/bin
+          - install eve-run /app/bin/eve-run
+        sources:
+          - type: file
+            dest-filename: eve-run
+            path: scripts/eve-run.sh
+
