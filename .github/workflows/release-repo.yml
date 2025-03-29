@@ -45,18 +45,15 @@ jobs:
             flatpak-builder \
             elfutils \
             rsync \
-            imagemagick
+            imagemagick \
+            p7zip \
+            p7zip-rar
       - name: Build Flatpak
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_KEY_GREP: ${{ secrets.GPG_KEY_GREP }}
 
         run: |
-          # gpg --import --batch ${GPG_PRIVATE_KEY}
-          # echo "allow-preset-passphrase" >> ~/.gnupg/gpg-agent.conf
-          # gpg-connect-agent reloadagent /bye
-          # cat $GPG_PASSPHRASE | /usr/libexec/gpg-preset-passphrase --preset $GPG_KEY_GREP
-          # gpg --import --batch ${GPG_PRIVATE_KEY}
 
           flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
           ./build.sh
