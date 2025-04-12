@@ -11,18 +11,6 @@ eve_launcher_exe_path="$WINEPREFIX/drive_c/users/steamuser/AppData/Local/eve-onl
 
 # Install if the eve-online exe does not exist
 if ! [ -f "$eve_launcher_exe_path" ]; then
-  echo "First time install"
-  curl -o "proton.tar.gz" -L "$PROTON_LATEST_URL"
-
-  # Validate checksum
-  echo "Validating checksum equals $PROTON_LATEST_SHA512"
-  echo "$PROTON_LATEST_SHA512 proton.tar.gz" | sha512sum --check
-  echo "Checksum is valid"
-
-  # Install proton
-  mkdir proton
-  tar -xzf "proton.tar.gz" -C proton --strip-components=1
-
   # Install dotnet8 and launch
   umu-run winetricks -q dotnet8
   curl -o "$eve_online_installer_name" -L "$eve_online_setup_exe_url"
