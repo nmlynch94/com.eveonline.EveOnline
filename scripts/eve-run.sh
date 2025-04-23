@@ -2,7 +2,7 @@
 set -eua pipefail
 
 cd "$XDG_DATA_HOME"
-source /app/constants.sh
+. /app/constants.sh
 
 eve_online_setup_exe_url="https://launcher.ccpgames.com/eve-online/release/win32/x64/eve-online-latest+Setup.exe"
 eve_online_installer_name="eve-online-setup.exe"
