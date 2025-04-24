@@ -137,9 +137,9 @@ modules:
         build-commands:
           - mv "EVE-O-Preview.exe" "/app/eve-o-preview.exe"
         sources:
-          - type: file
-            url: https://github.com/nmlynch94/eve-o-preview/releases/download/1/EVE-O-Preview.exe
-            sha256: 65ca5950d05acf225ddc4fdb75fd2f3ed5c4d55bacb8206d8499e30233e6bb1f
+          - type: archive
+            url: https://github.com/Proopai/eve-o-preview/releases/download/8.0.2.1/Release-8.0.2.1-Linux.zip
+            sha256: 118091b9668c39e4b23a1c7d26b6fb024a71753d6bf0f0ff44f30f746065e4cb
       - name: eve-o-run
         buildsystem: simple
         build-commands:
