@@ -20,7 +20,7 @@
         ".*"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[^\\s]+))?(?: packageName=(?<packageName>[^\\s]+))?\\s*\\n\\s*(?<varName>[A-Z0-9_]+)\\s*:\\s*(?:\\(\\s*)?[\"'](?<currentValue>[^\"']+)[\"'](?:\\s*,\\s*\\))?"
+        "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[^\\s]+))?(?: packageName=(?<packageName>[^\\s]+))?\\s*\\n\\s*\"(?<varName>[A-Z0-9_]+)\"\\s*:\\s*(?:\\(\\s*)?[\"'](?<currentValue>[^\"']+)[\"'](?:\\s*,\\s*\\))?"
       ],
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver-coerced{{/if}}"
     }
