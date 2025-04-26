@@ -3,7 +3,7 @@
 import os
 
 versions = {
-    # renovate: datasource=github-tags depName=proopai/eve-o-preview
+    # renovate: datasource=github-releases depName=eve-o-preview packageName=proopai/eve-o-preview
     "EVE_O_PREVIEW_VERSION": "8.0.2.1",
     "EVE_O_PREVIEW_SHA256": "118091b9668c39e4b23a1c7d26b6fb024a71753d6bf0f0ff44f30f746065e4cb",
     # renovate: datasource=github-tags depName=Open-Wine-Components/umu-launcher
