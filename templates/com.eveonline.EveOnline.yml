@@ -130,7 +130,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/Open-Wine-Components/umu-launcher/releases/download/${UMU_LAUNCHER_VERSION}/umu-launcher-${UMU_LAUNCHER_VERSION}-zipapp.tar
-        sha256: ${UMU_LAUNCHER_SHA256}
+        sha256: ${UMU_LAUNCHER_VERSION_SHA256}
     modules:
       - name: eve-o-preview
         buildsystem: simple
@@ -139,7 +139,7 @@ modules:
         sources:
           - type: archive
             url: https://github.com/Proopai/eve-o-preview/releases/download/${EVE_O_PREVIEW_VERSION}/Release-${EVE_O_PREVIEW_VERSION}-Linux.zip
-            sha256: ${EVE_O_PREVIEW_SHA256}
+            sha256: ${EVE_O_PREVIEW_VERSION_SHA256}
       - name: eve-o-run
         buildsystem: simple
         build-commands:
