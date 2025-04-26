@@ -22,6 +22,7 @@
       "matchStrings": [
         "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[^\\s]+))?(?: packageName=(?<packageName>[^\\s]+))?\\s*\\n\\s*\"version\"\\s*:\\s*\"(?<currentValue>[^\"]+)\",?"
       ],
+      "seemVer": "loose",
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver-coerced{{/if}}"
     }
   ],
