@@ -35,8 +35,8 @@ cwd = os.getcwd()
 with open(f"{cwd}/templates/com.eveonline.EveOnline.yml", "r") as f:
     data = f.read()
     for key, value in versions.items():
-        data = data.replace(f"${{{value['placeholder']}}}", value["version"])
+        data = data.replace(f"${{{value['version_placeholder']}}}", value["version"])
         sha256 = sha256_file(value["url_template"].format(version=value["version"]))
-        data = data.replace(f"${{{value['placeholder'] + '_SHA256'}}}", sha256)
+        data = data.replace(f"${{{value['version_placeholder'] + '_SHA256'}}}", sha256)
     with open(f"{cwd}/com.eveonline.EveOnline.yml", "w") as f:
         f.write(data)
