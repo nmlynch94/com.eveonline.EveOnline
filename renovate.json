@@ -20,9 +20,9 @@
         ".*"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:\\s*.*_?(?:version|VERSION)[:=]\\s*(?<currentValue>.*))?(?:\\s.*_(?:ref|REF)[:=]\\s*(?<currentDigest>.*))?"
+        "# renovate: datasource=(?<datasource>[a-z-]+)(?: depName=(?<depName>[^\\s]+))?(?: packageName=(?<packageName>[^\\s]+))?\\s*\\n\\s*\"version\"\\s*:\\s*\"(?<currentValue>[^\"]+)\",?"
       ],
-      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver-coerced{{/if}}"
+      "versioningTemplate": "loose"
     }
   ],
   "platformAutomerge": true
