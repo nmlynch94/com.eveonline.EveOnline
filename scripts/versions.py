@@ -18,14 +18,14 @@ def sha256_file(url):
 versions = {
     "eve-o-preview": {
         "version_placeholder": "EVE_O_PREVIEW_VERSION",
-        # renovate: datasource=github-tags depName=eve-o-preview packageName=proopai/eve-o-preview
+        # renovate: datasource=github-tags depName=eve-o-preview packageName=Proopai/eve-o-preview
         "version": "8.0.2.0",
         "url_template": "https://github.com/Proopai/eve-o-preview/releases/download/{version}/Release-{version}-Linux.zip",
     },
     "umu-launcher": {
         "version_placeholder": "UMU_LAUNCHER_VERSION",
         # renovate: datasource=github-tags depName=Open-Wine-Components/umu-launcher
-        "version": "1.2.6",
+        "version": "1.2.5",
         "url_template": "https://github.com/Open-Wine-Components/umu-launcher/releases/download/{version}/umu-launcher-{version}-zipapp.tar",
     },
 }
