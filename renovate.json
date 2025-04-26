@@ -6,7 +6,11 @@
   "packageRules": [
     {
       "commitMessagePrefix": "🚨",
-      "matchUpdateTypes": ["major", "minor", "patch"],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
       "automerge": true
     }
   ],
