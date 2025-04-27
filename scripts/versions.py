@@ -25,7 +25,7 @@ versions = {
     "umu-launcher": {
         "version_placeholder": "UMU_LAUNCHER_VERSION",
         # renovate: datasource=github-tags depName=Open-Wine-Components/umu-launcher
-        "version": "1.2.5",
+        "version": "1.2.6",
         "url_template": "https://github.com/Open-Wine-Components/umu-launcher/releases/download/{version}/umu-launcher-{version}-zipapp.tar",
     },
 }
