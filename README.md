@@ -12,3 +12,10 @@ EVE Online launcher packaged in a flatpak, configured to work with EVE-O Preview
 ```
 curl -fSsL https://raw.githubusercontent.com/nmlynch94/com.eveonline.EveOnline/refs/heads/main/install-eve-online-repo.sh | bash
 ```
+Now, you should have an icon in your application menu for both Eve-Online and Eve-O-Preview. Make sure you always launch Eve Online first.
+
+You can also launch them from the cli:
+```
+flatpak run com.eveonline.EveOnline
+flatpak run --command=eve-o-run com.eveonline.EveOnline
+```
