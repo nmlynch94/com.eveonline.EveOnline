@@ -5,6 +5,8 @@ I am in no way affiliated with CCP and running the launcher through linux is uns
 EVE Online launcher packaged in a flatpak, configured to work with EVE-O Preview out of the box.
 
 # Installation 
+### Dependencies
+- wmctrl - This is used by eve-o to switch the focus of the windows on the host
 
 ### Repo (automated updates) - This below command is the only one you need to run to get the launcher running.
 - Open a terminal (konsole, etc)
