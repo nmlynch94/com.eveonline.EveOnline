@@ -2,7 +2,7 @@
 I am in no way affiliated with CCP and running the launcher through linux is unsupported by them. Any issues should be reported here as tickets. Use at your own risk.  
 
 # What is this?
-EVE Online launcher packaged in a flatpak, configured to work with EVE-O Preview out of the box.
+EVE Online launcher packaged in a flatpak, configured to work with EVE-O Preview out of the box. Eve-O needs to run in the same prefix as eve, and by default proton doesn't allow two processes to run in the same prefix. This simplifies the setup to work around these issues.
 
 # Installation 
 ### Dependencies
