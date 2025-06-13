@@ -33,6 +33,7 @@ if ! [ -d "$WINEPREFIX/drive_c/users/$USER/AppData/Local/eve-online/app-1.9.4" ]
   # Check SHA512 against downloaded file
   echo "$EVE_ONLINE_LAUNCHER_SHA512  $EVE_ONLINE_LAUNCHER_NAME" | sha512sum -c -
   unzip "$EVE_ONLINE_LAUNCHER_NAME" -d out/
+  mv out/lib/net45 "$WINEPREFIX/drive_c/users/$USER/AppData/Local/eve-online/app-1.9.4"
 
   # Cleanup
   rm -rf out/
