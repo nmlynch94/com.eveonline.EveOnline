@@ -1,5 +1,5 @@
 #!/bin/bash
-FREEDESKTOP_VERSION="23.08"
+FREEDESKTOP_VERSION="24.08"
 
 set -e
 
