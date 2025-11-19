@@ -5,3 +5,4 @@ export WINEPREFIX="$XDG_DATA_HOME"/staging_prefix
 export PROTON_NO_FSYNC=1
 export PROTON_NO_ESYNC=1
 export PROTONPATH="GE-Proton"
+export PROTON_VERB="run"
