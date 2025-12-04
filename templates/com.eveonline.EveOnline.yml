@@ -5,7 +5,7 @@ x-gl-version: &gl-version "1.4"
 x-gl-versions: &gl-versions 24.08;24.08-extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
-command: eve-run
+command: eve-wrapper
 separate-locales: false
 
 sdk-extensions:
@@ -35,6 +35,10 @@ finish-args:
   - --filesystem=xdg-data/icons:create
   - --filesystem=xdg-run/app/com.discordapp.Discord
   - --filesystem=xdg-run/discord-ipc-0
+   # allow the app to own and talk to its controller name
+  - --own-name=com.eveonline.EveController
+  - --talk-name=com.eveonline.EveController
+  - --socket=session-bus
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
@@ -182,11 +186,29 @@ modules:
         sources:
           - type: file
             path: scripts/constants.sh
+      - name: controller-script
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/bin
+          - install eve-controller /app/bin/eve-controller
+        sources:
+          - type: file
+            dest-filename: eve-controller
+            path: scripts/eve-controller.py
+      - name: wrapper-script
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/bin
+          - install eve-wrapper /app/bin/eve-wrapper
+        sources:
+          - type: file
+            dest-filename: eve-wrapper
+            path: scripts/eve-wrapper.sh
       - name: launch-script
         buildsystem: simple
         build-commands:
           - mkdir -p /app/bin
-          - install eve-run /app/bin/eve-run
+          - install eve-run /app/bin/eve-run-internal
         sources:
           - type: file
             dest-filename: eve-run
