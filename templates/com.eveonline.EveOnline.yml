@@ -125,6 +125,20 @@ modules:
         url: https://files.pythonhosted.org/packages/c4/e6/c1ac50fe3eebb38a155155711e6e864e254ce4b6e17fe2429b4c4d5b9e80/flit_core-3.9.0.tar.gz
         sha256: 72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba
 
+  - name: proton-ge
+    buildsystem: simple
+    build-commands:
+      - mkdir proton
+      - tar xf protonge.tar.xz -C proton --strip-components 1 
+      - install --directory /app/opt
+      - chmod 755 -R proton
+      - mv proton /app/opt/proton
+    sources:
+      - type: file
+        dest-filename: protonge.tar.xz
+        url: https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-25/GE-Proton10-25.tar.gz
+        sha512: 1e2804cd15d50fa470cbcb9112ede1f0d9fc08b40043ebac1b35f81a9e4c588e2cc62df53dbe3beee426771c5b0f293ece76c8a65c7da54476ada8a70e1d7b52
+
   # --- umu ---
   - name: umu-run
     buildsystem: simple

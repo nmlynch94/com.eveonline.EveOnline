@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 uri="$1"
@@ -6,8 +6,29 @@ EVE_ONLINE_LAUNCHER_URL="https://launcher.ccpgames.com/eve-online/release/win32/
 EVE_ONLINE_LAUNCHER_NAME="eve-online-1.9.4-full.nupkg"
 EVE_ONLINE_LAUNCHER_SHA512="70cd86437d7de0566228b7a5b0a5abd2c6c83bd3c6cb7e8f09678dec75c2f3ed2ca3b323227947c81c127ac41a0b27a052157baec1f4feecca6885518c9417a0"
 
-cd "$XDG_DATA_HOME"
 . /app/constants.sh
+
+# This is an unfortunate hack needed because the /app dir is not mounted inside the steam runtime. The paths seen by umu-run is different than is seen by scripts in the steam runtime. Let me know if you have ideas on how to avoid this.
+if [[ -f "$UMU_PROTON_DIR/proton" ]]; then
+  LOCAL_SHA256="$(sha256sum $UMU_PROTON_DIR/proton | awk '{ print $1 }')"
+  FLATPAK_SHA256="$(sha256sum /app/opt/proton/proton | awk '{ print $1 }')"
+
+  if [[ "$LOCAL_SHA256" != "$FLATPAK_SHA256" ]]; then
+    echo "$LOCAL_SHA256 does not match $FLATPAK_SHA256. Updating proton ge..."
+
+    rm -rf "$UMU_PROTON_DIR"
+    mkdir -p "$UMU_PROTON_DIR"
+    cp -r /app/opt/proton/* "$UMU_PROTON_DIR/"
+  else
+    echo "$LOCAL_SHA256 DOES match $FLATPAK_SHA256. No proton ge update needed."
+  fi
+
+else
+  mkdir -p "$UMU_PROTON_DIR"
+  cp -r /app/opt/proton/* "$UMU_PROTON_DIR/"
+fi
+
+cd "$XDG_DATA_HOME"
 
 eve_online_setup_exe_url="https://launcher.ccpgames.com/eve-online/release/win32/x64/eve-online-latest+Setup.exe"
 eve_online_installer_name="eve-online-setup.exe"
