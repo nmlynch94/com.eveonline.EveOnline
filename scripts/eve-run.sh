@@ -46,8 +46,7 @@ fi
 
 if [[ "${uri}" =~ ^eveonline:// ]]; then
   echo "Launching EVE Online from URI"
-  PROTON_VERSION="$(cat "$XDG_DATA_HOME"/prefix/version)"
-  "$XDG_DATA_HOME/../.local/share/Steam/compatibilitytools.d/$PROTON_VERSION/files/bin/wine64" "$WINEPREFIX/drive_c/users/$USER/AppData/Local/eve-online/app-1.9.4/eve-online.exe" "$uri"
+  umu-run "$WINEPREFIX/drive_c/users/$USER/AppData/Local/eve-online/app-1.9.4/eve-online.exe" "$uri"
   exit 0
 fi
 
