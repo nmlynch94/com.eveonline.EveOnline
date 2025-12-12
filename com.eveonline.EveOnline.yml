@@ -1,0 +1,229 @@
+id: com.eveonline.EveOnline
+runtime: org.freedesktop.Platform
+runtime-version: &runtime-version "24.08"
+x-gl-version: &gl-version "1.4"
+x-gl-versions: &gl-versions 24.08;24.08-extra;1.4
+x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
+sdk: org.freedesktop.Sdk
+command: eve-wrapper
+separate-locales: false
+
+sdk-extensions:
+  - org.freedesktop.Sdk.Compat.i386
+  - org.freedesktop.Sdk.Extension.toolchain-i386
+finish-args:
+# pressure vessel
+  - --device=all
+  - --env=PATH=/app/bin:/app/utils/bin:/usr/bin:/usr/lib/extensions/vulkan/MangoHud/bin:/usr/lib/extensions/vulkan/gamescope/bin:/usr/lib/extensions/vulkan/OBSVkCapture/bin:/app/bin/heroic/resources/app.asar.unpacked/build/bin/linux
+  - --env=LD_LIBRARY_PATH=/usr/lib/extensions/vulkan/gamescope/lib
+  - --persist=Games
+  - --persist=.local
+  - --filesystem=xdg-run/gamescope-0:rw
+  # See: https://github.com/flathub/com.valvesoftware.Steam/commit/0538256facdb0837c33232bc65a9195a8a5bc750
+  - --env=XDG_DATA_DIRS=/app/share:/usr/lib/extensions/vulkan/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:/usr/lib/pressure-vessel/overrides/share
+  - --allow=per-app-dev-shm
+  # umu
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --socket=pulseaudio
+  - --share=network
+  - --allow=devel
+  - --allow=multiarch
+  - --talk-name=org.freedesktop.Notifications
+  - --talk-name=org.freedesktop.Flatpak
+  - --filesystem=xdg-data/icons:create
+  - --filesystem=xdg-run/app/com.discordapp.Discord
+  - --filesystem=xdg-run/discord-ipc-0
+   # allow the app to own and talk to its controller name
+  - --own-name=com.eveonline.EveController
+  - --talk-name=com.eveonline.EveController
+  - --socket=session-bus
+
+add-extensions:
+  org.freedesktop.Platform.Compat.i386:
+    directory: lib/i386-linux-gnu
+    version: "46"
+
+  org.freedesktop.Platform.Compat.i386.Debug:
+    directory: lib/debug/lib/i386-linux-gnu
+    version: "46"
+    no-autodownload: true
+
+  org.freedesktop.Platform.GL32:
+    directory: lib/i386-linux-gnu/GL
+    version: *gl-version
+    versions: *gl-versions
+    subdirectories: true
+    no-autodownload: true
+    autodelete: false
+    add-ld-path: lib
+    merge-dirs: *gl-merge-dirs
+    download-if: active-gl-driver
+    enable-if: active-gl-driver
+    autoprune-unless: active-gl-driver
+
+  org.freedesktop.Platform.GL32.Debug:
+    directory: lib/debug/lib/i386-linux-gnu/GL
+    version: *gl-version
+    versions: *gl-versions
+    subdirectories: true
+    no-autodownload: true
+    merge-dirs: *gl-merge-dirs
+    enable-if: active-gl-driver
+    autoprune-unless: active-gl-driver
+
+  org.freedesktop.Platform.VAAPI.Intel.i386:
+    directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
+    version: *runtime-version
+    versions: *runtime-version
+    autodelete: false
+    no-autodownload: true
+    add-ld-path: lib
+    download-if: have-intel-gpu
+    autoprune-unless: have-intel-gpu
+
+modules:
+  - name: platform-bootstrap
+    buildsystem: simple
+    build-commands:
+      - |
+        set -e
+        mkdir -p /app/bin
+        mkdir -p /app/lib/i386-linux-gnu
+        mkdir -p /app/lib/i386-linux-gnu/GL
+        mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu/GL
+        install -Dm644 -t /app/etc ld.so.conf
+        mkdir -p /app/lib{,32}/ffmpeg
+        mkdir -p /app/share/steam/compatibilitytools.d
+        mkdir -p /app/utils /app/share/vulkan
+        ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
+        ln -srv /app/{utils/,}share/vulkan/implicit_layer.d
+        mkdir -p /app/links/lib
+        ln -srv /app/lib /app/links/lib/x86_64-linux-gnu
+        ln -srv /app/lib32 /app/links/lib/i386-linux-gnu
+    sources:
+      - type: inline
+        dest-filename: ld.so.conf
+        contents: |
+          # We just make any GL32 extension have higher priority
+          include /run/flatpak/ld.so.conf.d/app-*-org.freedesktop.Platform.GL32.*.conf
+          /app/lib32
+          /app/lib/i386-linux-gnu
+          /lib64
+
+  # These are needed for window management inside gamescope
+  # --- python-xlib ---
+  - name: python-xlib
+    buildsystem: simple
+    build-commands:
+      - pip3 install --no-index --no-build-isolation --prefix="${FLATPAK_DEST}" .
+    sources:
+      - type: archive
+        url: https://files.pythonhosted.org/packages/source/p/python-xlib/python-xlib-0.33.tar.gz
+        sha256: 55af7906a2c75ce6cb280a584776080602444f75815a7aff4d287bb2d7018b32
+
+  - name: proton-ge
+    buildsystem: simple
+    build-commands:
+      - mkdir proton
+      - tar xf protonge.tar.xz -C proton --strip-components 1 
+      - install --directory /app/opt
+      - chmod 755 -R proton
+      - mv proton /app/opt/proton
+    sources:
+      - type: file
+        dest-filename: protonge.tar.xz
+        url: https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-25/GE-Proton10-25.tar.gz
+        sha512: 1e2804cd15d50fa470cbcb9112ede1f0d9fc08b40043ebac1b35f81a9e4c588e2cc62df53dbe3beee426771c5b0f293ece76c8a65c7da54476ada8a70e1d7b52
+
+  # --- umu ---
+  - name: umu-run
+    buildsystem: simple
+    build-commands:
+      - |
+        install umu-run /app/bin/umu-run
+    sources:
+      - type: archive
+        url: https://github.com/Open-Wine-Components/umu-launcher/releases/download/1.3.0/umu-launcher-1.3.0-zipapp.tar
+        sha256: 36502de766f3cc549ff85196a04fb5afdb4eb2a72c023f22fd25895df91fda2f
+    modules:
+      - name: eve-o-preview
+        buildsystem: simple
+        build-commands:
+          - mv "EVE-O-Preview.exe" "/app/eve-o-preview.exe"
+        sources:
+          - type: archive
+            url: https://github.com/Proopai/eve-o-preview/releases/download/8.0.2.20/Release-8.0.2.20-Linux.zip
+            sha256: 587e5f91aadf9d11951e743dac7139d2e4fc52ea7fe0803a1322f0192ae47ec6
+      - name: eve-o-run
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/bin
+          - install eve-o-run /app/bin/eve-o-run
+          - install -Dm644 com.eveonline.EveOnline.eveo.desktop /app/share/applications/com.eveonline.EveOnline.eveo.desktop
+          - install -Dm644 com.eveonline.EveOnline.eveo.metainfo.xml /app/share/metainfo/com.eveonline.EveOnline.eveo.metainfo.xml
+          - install -Dm644 eve-o-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.eveo.png
+        sources:
+          - type: file
+            path: scripts/eve-o-run.sh
+            dest-filename: eve-o-run
+          - type: file
+            path: com.eveonline.EveOnline.eveo.desktop
+          - type: file
+            path: com.eveonline.EveOnline.eveo.metainfo.xml
+          - type: file
+            path: icons/256/eve-o-256.png
+      - name: eve-online-launcher
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/lib/i386-linux-gnu/GL
+          - mkdir -p /app/lib/debug/lib/i386-linux-gnu
+          - mkdir -p /app/bin
+          - install -Dm644 com.eveonline.EveOnline.desktop /app/share/applications/com.eveonline.EveOnline.desktop
+          - install -Dm644 com.eveonline.EveOnline.metainfo.xml /app/share/metainfo/com.eveonline.EveOnline.metainfo.xml
+          - install -Dm644 eve-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.png
+          - install -Dm644 eve-256.png /app/share/icons/hicolor/256x256/apps/com.eveonline.EveOnline.png
+        sources:
+          - type: file
+            path: com.eveonline.EveOnline.desktop
+          - type: file
+            path: com.eveonline.EveOnline.metainfo.xml
+          - type: file
+            path: icons/256/eve-256.png
+      - name: constants
+        buildsystem: simple
+        build-commands:
+          - install constants.sh /app/constants.sh
+        sources:
+          - type: file
+            path: scripts/constants.sh
+      - name: controller-script
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/bin
+          - install eve-controller /app/bin/eve-controller
+        sources:
+          - type: file
+            dest-filename: eve-controller
+            path: scripts/eve-controller.py
+      - name: wrapper-script
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/bin
+          - install eve-wrapper /app/bin/eve-wrapper
+        sources:
+          - type: file
+            dest-filename: eve-wrapper
+            path: scripts/eve-wrapper.sh
+      - name: launch-script
+        buildsystem: simple
+        build-commands:
+          - mkdir -p /app/bin
+          - install eve-run /app/bin/eve-run-internal
+        sources:
+          - type: file
+            dest-filename: eve-run
+            path: scripts/eve-run.sh
