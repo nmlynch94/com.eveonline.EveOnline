@@ -19,7 +19,7 @@ versions = {
     "eve-o-preview": {
         "version_placeholder": "EVE_O_PREVIEW_VERSION",
         # renovate: datasource=github-releases depName=eve-o-preview packageName=proopai/eve-o-preview
-        "version": "8.0.2.20",
+        "version": "8.0.2.24",
         "url_template": "https://github.com/Proopai/eve-o-preview/releases/download/{version}/Release-{version}-Linux.zip",
     },
     "umu-launcher": {
