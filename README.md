@@ -32,3 +32,5 @@ You can also launch them from the cli:
 flatpak run com.eveonline.EveOnline
 flatpak run --command=eve-o-run com.eveonline.EveOnline
 ```
+
+if you find this project useful, feel free to donate ISK to Mantis T Oboggan IGN.
