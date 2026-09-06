@@ -59,7 +59,7 @@ jobs:
           ./build.sh
       - name: Push Flatpak repository
         run: |
-          rsync -a --delete --exclude='.git/' ./out/ ./repo/
+          rsync -a --delete --exclude='.git/' --exclude='EveOnline.flatpakrepo' ./out/ ./repo/
           cd repo
           git add -A
           git rm -r --cached build-dir .flatpak-builder || echo "true"
