@@ -59,9 +59,10 @@ jobs:
           ./build.sh
       - name: Push Flatpak repository
         run: |
-          rsync -a ./out/ ./repo/
+          rsync -a --delete --exclude='.git/' ./out/ ./repo/
           cd repo
           git add -A
+          git rm -r --cached build-dir .flatpak-builder || echo "true"
           git commit --signoff -m "Update com.eveonline.EveOnline"
           git reset $(git commit-tree HEAD^{tree} -m "Update com.eveonline.EveOnline")
           git push --progress -f origin flatpak-repo
