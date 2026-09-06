@@ -61,7 +61,6 @@ jobs:
         run: |
           rsync -a ./out/ ./repo/
           cd repo
-          touch test
           git add -A
           git commit --signoff -m "Update com.eveonline.EveOnline"
           git reset $(git commit-tree HEAD^{tree} -m "Update com.eveonline.EveOnline")
